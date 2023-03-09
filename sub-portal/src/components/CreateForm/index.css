@@ -1,0 +1,6 @@
+.create-form {
+  margin-top: 10px;
+}
+input[type="submit"] {
+  border: none;
+}

@@ -1,46 +1,36 @@
-
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { registerMicroApps, start } from 'qiankun';
 
-import App from './App';
+import renderApp from './App';
+import { Micro_Apps } from './constants';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <App />
-);
+window.__POWERED_BY_QIANKUN__ = true
+renderApp({ loading: true });
 
+// const loader = (loading) => render({ loading });
 
-const apps = [
-  {
-    name: 'sub-portal',
-    entry: '//localhost:3001',
-    container: '#sub-containter',
-    activeRule: '/sub-create',
-  },
-]
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <App />
+// );
 
 const lifeCycles = {
-  beforeLoad: () => {
-    ReactDOM.createRoot(
-      document.getElementById('subApp')
-    ).render(
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontWeight: 600,
-          fontSize: '20px',
-          marginTop: '40px',
-        }}
-      >
-        <h1>Loading...</h1>
-      </div>,
-    );
-  },
+  beforeLoad: [
+    (app) => {
+      console.log('[LifeCycle] before load %c%s', 'color: green;', app.name);
+    },
+  ],
+  beforeMount: [
+    (app) => {
+      console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name);
+    },
+  ],
+  afterUnmount: [
+    (app) => {
+      console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name);
+    },
+  ],
 };
 
-registerMicroApps(apps, lifeCycles)
+registerMicroApps(Micro_Apps, lifeCycles)
 // 启动 qiankun
-start({ prefetch: 'all' });
+start({ prefetch: 'all', strictStyleIsolation: true });
