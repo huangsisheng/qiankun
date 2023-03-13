@@ -1,15 +1,18 @@
+import { loadMicroApp } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Micro_Modal } from './constants';
 
 /**
  * 渲染子应用
  */
 function Render(props) {
-  const { loading } = props;
-
+  const onClick = () => {
+    loadMicroApp(Micro_Modal)
+  }
   return (
     <>
-      {loading && <h4 className="subapp-loading">Loading...</h4>}
+      <button onClick={onClick}>显示子应用</button>
       <div id="micro-app" />
     </>
   );

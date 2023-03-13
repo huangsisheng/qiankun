@@ -6,3 +6,13 @@ export const Micro_Apps = [
     activeRule: '/create',
   },
 ]
+
+export const Micro_Modal = {
+  name: 'sub-portal',
+  entry: '//localhost:9999/create',
+  container: '#micro-app',
+  props: {
+    from: 'main',
+    page: 'Create'
+  }
+}

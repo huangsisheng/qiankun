@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 import './public-path';
+import { loadComponent } from './utils/router';
 
-function render(props) {
+function render(props, Comp = App) {
   const { container } = props;
   const root = ReactDOM.createRoot(container ? container.querySelector('#root') : document.querySelector('#root'));
-  root.render(
-    <App />
-  );
+  root.render(<Comp />);
 }
 
 if (!window.__POWERED_BY_QIANKUN__) {
@@ -21,8 +20,10 @@ export async function bootstrap() {
 }
 
 export async function mount(props) {
-  console.log('props from main framework', props);
-  render(props);
+  const { from, page } = props
+  if (from === 'main') {
+    render(props, loadComponent(page, true))
+  }
 }
 
 export async function unmount(props) {
